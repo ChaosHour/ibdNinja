@@ -160,10 +160,10 @@ bool Table::ContainFulltext() {
 #define UNSUPP_TABLE_MASK_VERSION 0x10
 
 void Table::PreCheck() {
-  // Supported MySQL versions: 8.0.16–8.0.40, 8.4.0–8.4.8, 9.0.0–9.6.0
+  // Supported MySQL versions: 8.0.16–8.0.40, 8.4.0–8.4.8, 9.0.0–9.7.x
   if (!((dd_mysql_version_id_ >= 80016 && dd_mysql_version_id_ <= 80040) ||
         (dd_mysql_version_id_ >= 80400 && dd_mysql_version_id_ <= 80408) ||
-        (dd_mysql_version_id_ >= 90000 && dd_mysql_version_id_ <= 90600))) {
+        (dd_mysql_version_id_ >= 90000 && dd_mysql_version_id_ <= 90799))) {
     unsupported_reason_ |= UNSUPP_TABLE_MASK_VERSION;
   }
 
@@ -215,7 +215,7 @@ std::string Table::UnsupportedReason() {
   if (unsupported_reason_ & UNSUPP_TABLE_MASK_VERSION) {
     reason += ("[Table was created in unsupported version " +
                 std::to_string(dd_mysql_version_id_) +
-                ", expected in [80016, 80040], [80400, 80408], [90000, 90600] ]");
+                ", expected in [80016, 80040], [80400, 80408], [90000, 90799] ]");
   }
   return reason;
 }
