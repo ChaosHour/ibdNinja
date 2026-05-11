@@ -1890,7 +1890,7 @@ unsigned char* ibdNinja::GetNextRecInPage(unsigned char* current_rec,
 ssize_t ibdNinja::ReadPage(uint32_t page_no, unsigned char* buf) {
   assert(buf != nullptr);
   memset(buf, 0, g_page_physical_size);
-  off_t offset = page_no * g_page_physical_size;
+  off_t offset = static_cast<off_t>(page_no) * g_page_physical_size;
   ssize_t n_bytes_read = pread(g_fd, buf, g_page_physical_size, offset);
 
   // TODO(Zhao): Support compressed page
